@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         val img: ImageView = findViewById(R.id.imgTitle)
         GlideApp.with(this)
             .load(R.drawable.cover)
-            .circleCrop()
             .override(800, 600)
             .into(imgTitle)
         RndShape()
@@ -34,7 +33,9 @@ class MainActivity : AppCompatActivity() {
 
         imgNext.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(p0: View?): Boolean {
-                intent = Intent(this@MainActivity, GameActivity::class.java)
+                intent = Intent(this@MainActivity, GameActivity::class.java).apply {
+                    putExtra("形狀",Flag)
+                }
                 startActivity(intent)
                 return true
             }
