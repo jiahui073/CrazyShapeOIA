@@ -15,13 +15,11 @@ public final class MyAppGlideModule : AppGlideModule()
 
 
 class MainActivity : AppCompatActivity() {
+    var Flag:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val shape= intArrayOf(R.drawable.circle,R.drawable.square,R.drawable.triangle,R.drawable.star)
-        val i:Int = (0..3).random()
-        imgNext.setImageResource(shape[i])
 
         val img: ImageView = findViewById(R.id.imgTitle)
         GlideApp.with(this)
@@ -29,6 +27,7 @@ class MainActivity : AppCompatActivity() {
             .circleCrop()
             .override(800, 600)
             .into(imgTitle)
+        RndShape()
 
 
         Toast.makeText(baseContext, "作者：鄧嘉慧", Toast.LENGTH_LONG).show()
@@ -37,15 +36,25 @@ class MainActivity : AppCompatActivity() {
             override fun onLongClick(p0: View?): Boolean {
                 intent = Intent(this@MainActivity, GameActivity::class.java)
                 startActivity(intent)
-                recreate()
                 return true
             }
         })
-        imgNext.setOnClickListener(object:View.OnClickListener{
-            override fun onClick(v: View?) {
-                imgNext.setImageResource(shape[i])
-                recreate()
-            }
+
+        imgNext.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?){
+            RndShape()
+        }
         })
+
+            }
+fun RndShape() {
+    Flag = (1..4).random()
+    when (Flag) {
+        1 -> imgNext.setImageResource(R.drawable.circle)
+        2 -> imgNext.setImageResource(R.drawable.triangle)
+        3 -> imgNext.setImageResource(R.drawable.square)
+        4 -> imgNext.setImageResource(R.drawable.star)
+
     }
+}
 }
