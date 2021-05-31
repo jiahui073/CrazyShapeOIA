@@ -19,6 +19,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val shape= intArrayOf(R.drawable.circle,R.drawable.square,R.drawable.triangle,R.drawable.star)
+        val i:Int = (0..3).random()
+        imgNext.setImageResource(shape[i])
+
         val img: ImageView = findViewById(R.id.imgTitle)
         GlideApp.with(this)
             .load(R.drawable.cover)
@@ -33,7 +37,14 @@ class MainActivity : AppCompatActivity() {
             override fun onLongClick(p0: View?): Boolean {
                 intent = Intent(this@MainActivity, GameActivity::class.java)
                 startActivity(intent)
+                recreate()
                 return true
+            }
+        })
+        imgNext.setOnClickListener(object:View.OnClickListener{
+            override fun onClick(v: View?) {
+                imgNext.setImageResource(shape[i])
+                recreate()
             }
         })
     }
